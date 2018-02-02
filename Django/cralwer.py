@@ -46,8 +46,8 @@ def get_episode_list(webtoon_id, page, refresh_html=None):
                 'page': page
             }
             response = requests.get(url, params)
-            # page 확인
-            print(response.url)
+            # # page 확인
+            # print(response.url)
             source = response.text
             f.write(source)
     except FileExistsError:
@@ -56,7 +56,6 @@ def get_episode_list(webtoon_id, page, refresh_html=None):
     source = open(file_path, 'rt').read()
     soup = BeautifulSoup(source, 'lxml')
 
-    view_list = soup.find('table', class_='viewList')
     tbody = soup.select('table.viewList > tr')
     result = list()
     for td in tbody:
