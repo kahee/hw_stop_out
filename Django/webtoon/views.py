@@ -6,9 +6,9 @@ from webtoon.models import Webtoon
 
 
 def webtoon_list(request):
-    webtoon = Webtoon.objects.all()
+    webtoons = Webtoon.objects.all()
     context = {
-        'webtoon': webtoon
+        'webtoons': webtoons
     }
 
-    return HttpResponse(webtoon)
+    return render(request,'webtoon/webtoon_list.html',context)
