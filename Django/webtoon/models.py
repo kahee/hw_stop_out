@@ -12,6 +12,4 @@ class Episode(models.Model):
     episode_id = models.CharField(max_length=40)
     title = models.CharField(max_length=288)
     rating = models.CharField(max_length=100)
-    created_date = models.DateTimeField(
-        default=timezone.now
-    )
+    created_date = models.CharField(max_length=288)

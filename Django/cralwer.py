@@ -46,8 +46,8 @@ def get_episode_list(webtoon_id, page, refresh_html=None):
                 'page': page
             }
             response = requests.get(url, params)
-            # # page 확인
-            # print(response.url)
+            # page 확인
+            print(response.url)
             source = response.text
             f.write(source)
     except FileExistsError:
@@ -60,25 +60,25 @@ def get_episode_list(webtoon_id, page, refresh_html=None):
     result = list()
     for td in tbody:
         number = td.find('a').get('onclick')
-        episode_id = re.search(r".*(\d+)?,'(\d+)'",number).group(2)
+        episode_id = re.search(r".*(\d+)?,'(\d+)'", number).group(2)
         img = td.find('img').get('src')
-        title = td.find('td',class_="title").get_text(strip =True)
+        title = td.find('td', class_="title").get_text(strip=True)
         rating = td.select_one('div.rating_type > strong').text
-        created_date =td.find('td',class_="num").get_text(strip =True)
+        created_date = td.find('td', class_="num").get_text(strip=True)
 
-        episode = EpisodeData(episode_id,img,title,rating,created_date)
+        episode = EpisodeData(episode_id, img, title, rating, created_date)
         result.append({
-            'episode_id':episode_id,
-            'img':img,
-            'title':title,
-            'rating':rating,
-            'created_date':created_date
+            'episode_id': episode_id,
+            'img': img,
+            'title': title,
+            'rating': rating,
+            'created_date': created_date
         })
 
     return result
 
 
 if __name__ == '__main__':
-    webtoon =  get_episode_list(703835, 1)
+    webtoon = get_episode_list(703835, 1)
     for episode in webtoon:
         print(episode)
