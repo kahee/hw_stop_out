@@ -5,6 +5,19 @@ from django.shortcuts import render
 from cralwer import get_episode_list
 from webtoon.models import Webtoon, Episode
 
+def webtoon_add(request):
+    context = {}
+    if request.method == 'POST':
+        title = request.POST['title']
+        webtoon_id = request.POST['webtoon_id']
+
+        webtoon = Webtoon.objects.create(
+            title=title,
+            webtoon_id = webtoon_id)
+        webtoon.save()
+
+    return render(request, 'webtoon/webtoon_add.html', {})
+
 
 def webtoon_list(request):
     # 저장된 웹툰 리스트를 보여줌

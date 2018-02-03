@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ 만화 추가하기
+{% endblock %}
+
+{% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title" >웹툰 제목</label>
+        <input
+                id ="title"
+                type="text"
+                name="title"
+                class="from-control">
+        <BR>
+        <!-- request.POST[title]은 name으로 받을 수 있는 것임-->
+        <label for="webtoon_id" >웹툰 ID</label>
+        <input
+                id ="webtoon_id"
+                type="text"
+                name="webtoon_id"
+                class="from-control">
+    </div>
+    <button type="submit" class="btn btn-primary">등록하기
+    </button>
+</form>
+{% endblock %}

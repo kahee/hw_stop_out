@@ -2,10 +2,11 @@
 
 
 {% block content %}
+<a href="{% url 'webtoon-add' %}" class="btn btn-primary">만화 추가하기</a>
 
 {% for webtoon in webtoons %}
-    <h2><a href="{% url 'webtoon-detail' webtoon.pk %}">
-        {{ webtoon.title }} [{{ webtoon.webtoon_id}}]</a></h2>
+<h2><a href="{% url 'webtoon-detail' webtoon.pk %}">
+    {{ webtoon.title }} [{{ webtoon.webtoon_id}}]</a></h2>
 
 {% endfor %}
 
