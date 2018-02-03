@@ -1,16 +1,11 @@
-<!doctype html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-<h1>Naver Webtoon</h1>
+{% extends 'base.html' %}
+
+{% block title %}
+{{ webtoon.title }}
+{% endblock %}
+
+{% block content %}
 {% for episode in webtoon.episode_set.all %}
-<d>Episode : {{ webtoon.title }}| {{ episode.title }}</d><br><Br>
+<d>Episode : {{ webtoon.title }} | {{ episode.title }}</d><br><Br>
 {% endfor %}
-</body>
-</html>
+{% endblock %}

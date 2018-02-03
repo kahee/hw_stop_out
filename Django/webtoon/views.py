@@ -27,14 +27,17 @@ def webtoon_detail(request, pk):
         rating = result.get('rating')
         created_date = result.get('created_date')
 
-        # 크롤링한 데이터 Episode 테이블에 저장
-        episode = Episode.objects.create(
-            webtoon=Webtoon.objects.get(pk=pk),
-            title=title,
-            episode_id=episode_id,
-            rating=rating,
-            created_date=created_date)
-        episode.save()
+        if not Episode.objects.filter(episode_id=episode_id, webtoon=pk).exists():
+            # 크롤링한 데이터 Episode 테이블에 저장
+            episode = Episode.objects.create(
+                webtoon=Webtoon.objects.get(pk=pk),
+                title=title,
+                episode_id=episode_id,
+                rating=rating,
+                created_date=created_date)
+            episode.save()
+        else:
+            print('이미 저장된 데이터입니다.')
 
     context = {
         'webtoon': webtoon
