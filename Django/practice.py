@@ -23,7 +23,7 @@ class EpisodeData:
         self.created_date = created_date
 
 
-def get_episode_list(webtoon_id, page, refresh_html=None):
+def get_episode_list(webtoon_id):
     """
         고유ID(URL에서 titleId값)에 해당하는 웹툰의
         특정 page에 있는 에피소드 목록을 리스트로 리턴

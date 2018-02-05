@@ -5,20 +5,6 @@ from django.shortcuts import render
 from cralwer import get_episode_list
 from webtoon.models import Webtoon, Episode
 
-def webtoon_add(request):
-    context = {}
-    if request.method == 'POST':
-        title = request.POST['title']
-        webtoon_id = request.POST['webtoon_id']
-
-        webtoon = Webtoon.objects.create(
-            title=title,
-            webtoon_id = webtoon_id)
-        webtoon.save()
-
-    return render(request, 'webtoon/webtoon_add.html', {})
-
-
 def webtoon_list(request):
     # 저장된 웹툰 리스트를 보여줌
     webtoons = Webtoon.objects.all()
@@ -29,10 +15,19 @@ def webtoon_list(request):
 
 
 def webtoon_detail(request, pk):
+    # 클릭시 웹툰 추가
     webtoon = Webtoon.objects.get(pk=pk)
 
-    # webtoon_id 로 get_episode_list 실행
-    results = get_episode_list(webtoon.webtoon_id, 1)
+    if request.method == 'POST':
+        episode_page = request.POST['episode_page']
+        print(episode_page)
+        # # webtoon_id 로 get_episode_list 실행
+        results = get_episode_list(webtoon.webtoon_id, episode_page)
+
+    else:
+         # webtoon_id 로 get_episode_list 실행
+        results = get_episode_list(webtoon.webtoon_id, 1)
+
     # 각 딕셔너리의 key로 value 지
     for result in results:
         episode_id = result.get('episode_id')
@@ -58,3 +53,17 @@ def webtoon_detail(request, pk):
     }
 
     return render(request, 'webtoon/webtoon_detail.html', context)
+
+def webtoon_add(request):
+    context = {}
+    if request.method == 'POST':
+        title = request.POST['title']
+        webtoon_id = request.POST['webtoon_id']
+
+        webtoon = Webtoon.objects.create(
+            title=title,
+            webtoon_id = webtoon_id)
+        webtoon.save()
+
+    return render(request, 'webtoon/webtoon_add.html', {})
+

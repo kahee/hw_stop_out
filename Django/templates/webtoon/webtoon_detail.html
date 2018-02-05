@@ -5,6 +5,22 @@
 {% endblock %}
 
 {% block content %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class = "body-head">
+        <label for="episode_page" >페이지</label>
+        <input
+                id ="episode_page"
+                type="text"
+                name="episode_page"
+                class="from-control"
+                value="추가 페이지를 입력하세요."
+                onfocus="this.value=''">
+        <button type="submit" class="btn btn-primary">추가
+        </button>
+    </div>
+    <br>
+</form>
 {% for episode in webtoon.episode_set.all %}
 <d>Episode : {{ webtoon.title }} | {{ episode.title }}</d><br><Br>
 {% endfor %}
