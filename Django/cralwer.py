@@ -14,7 +14,6 @@ class EpisodeData:
     """
     하나의 에피소드에 대한 정보를 갖도록 함
     """
-
     def __init__(self, episode_id, url_thumbnail, title, rating, created_date):
         self.episode_id = episode_id
         self.url_thumbnail = url_thumbnail
@@ -32,15 +31,13 @@ def get_episode_list(webtoon_id):
         3. 크롤링 (페이지마다 어떻게 할것인가에 대해서생각)
         4. 리턴하지 말고 자신의 데이터 속성들을 EpisodeData 속성으로 할당
     """
+    # 기본 설정
     page = 1
     episode_id = None
     result = list()
+
+    # 에피소드id가 1이면 크롤링 중단
     while True:
-
-        # 파일 입력
-        file_name = f'webtoon_data_{webtoon_id}_{page}.html'
-        file_path = os.path.join(ROOT_DIR, file_name)
-
         url = "http://comic.naver.com/webtoon/list.nhn"
         params = {
             'titleId': webtoon_id,
@@ -52,6 +49,7 @@ def get_episode_list(webtoon_id):
         soup = BeautifulSoup(response.text, 'lxml')
         tbody = soup.select('table.viewList > tr')
 
+        # 에피소드id, 이미지 , 제목, 별점, 업데이트날짜
         for td in tbody:
             number = td.find('a').get('onclick')
             episode_id = re.search(r".*(\d+)?,'(\d+)'", number).group(2)
@@ -60,7 +58,9 @@ def get_episode_list(webtoon_id):
             rating = td.select_one('div.rating_type > strong').text
             created_date = td.find('td', class_="num").get_text(strip=True)
 
+            # EpisodeData 클래스에 추가
             episode = EpisodeData(episode_id, img, title, rating, created_date)
+
             result.append({
                 'episode_id': episode_id,
                 'img': img,
@@ -73,6 +73,7 @@ def get_episode_list(webtoon_id):
             break
         else:
             page = page + 1
+
     return result
 
 
