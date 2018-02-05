@@ -18,17 +18,11 @@ def webtoon_detail(request, pk):
     # 클릭시 웹툰 추가
     webtoon = Webtoon.objects.get(pk=pk)
 
-    if request.method == 'POST':
-        episode_page = request.POST['episode_page']
-        print(episode_page)
-        # # webtoon_id 로 get_episode_list 실행
-        results = get_episode_list(webtoon.webtoon_id, episode_page)
 
-    else:
          # webtoon_id 로 get_episode_list 실행
-        results = get_episode_list(webtoon.webtoon_id, 1)
+    results = get_episode_list(webtoon.webtoon_id)
 
-    # 각 딕셔너리의 key로 value 지
+    # 각 딕셔너리의 key로 value
     for result in results:
         episode_id = result.get('episode_id')
         title = result.get('title')
