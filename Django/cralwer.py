@@ -21,6 +21,9 @@ class EpisodeData:
         self.rating = rating
         self.created_date = created_date
 
+    def __str__(self):
+        return f'{self.episode_id} | {self.title}'
+
 
 def get_episode_list(webtoon_id):
     """
@@ -61,13 +64,7 @@ def get_episode_list(webtoon_id):
             # EpisodeData 클래스에 추가
             episode = EpisodeData(episode_id, img, title, rating, created_date)
 
-            result.append({
-                'episode_id': episode_id,
-                'img': img,
-                'title': title,
-                'rating': rating,
-                'created_date': created_date
-            })
+            result.append(episode)
 
         if episode_id == '1':
             break
